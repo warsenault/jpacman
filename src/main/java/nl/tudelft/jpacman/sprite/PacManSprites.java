@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import nl.tudelft.jpacman.PacmanConfigurationException;
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.npc.ghost.GhostColor;
 
@@ -105,7 +106,7 @@ public class PacManSprites extends SpriteStore {
      * @return The Sprite for the ghost.
      */
     public Map<Direction, Sprite> getGhostSprite(GhostColor color) {
-        assert color != null;
+        if (color == null) throw new PacmanStateException("'color' should not be null.");
 
         String resource = "/sprite/ghost_" + color.name().toLowerCase()
             + ".png";

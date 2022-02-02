@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
 
@@ -61,7 +62,7 @@ public class PacManUiBuilder {
      * @return A new Pac-Man UI with the set keys and buttons.
      */
     public PacManUI build(final Game game) {
-        assert game != null;
+        if (game == null) throw new PacmanStateException("'game' should not be null.");
 
         if (defaultButtons) {
             addStartButton(game);
@@ -106,8 +107,8 @@ public class PacManUiBuilder {
      * @return The builder.
      */
     public PacManUiBuilder addKey(Integer keyCode, Action action) {
-        assert keyCode != null;
-        assert action != null;
+        if (keyCode == null) throw new PacmanStateException("'keyCode' should not be null.");
+        if (action == null) throw new PacmanStateException("'action' should not be null.");
 
         keyMappings.put(keyCode, action);
         return this;
@@ -123,9 +124,9 @@ public class PacManUiBuilder {
      * @return The builder.
      */
     public PacManUiBuilder addButton(String caption, Action action) {
-        assert caption != null;
-        assert !caption.isEmpty();
-        assert action != null;
+        if (caption == null) throw new PacmanStateException("'caption' should not be null.");
+        if (caption.isEmpty()) throw new PacmanStateException("'caption' should be empty.");
+        if (action == null) throw new PacmanStateException("'action' should not be null.");
 
         buttons.put(caption, action);
         return this;

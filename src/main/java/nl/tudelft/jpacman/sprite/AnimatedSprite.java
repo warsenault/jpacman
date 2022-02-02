@@ -1,5 +1,7 @@
 package nl.tudelft.jpacman.sprite;
 
+import nl.tudelft.jpacman.PacmanStateException;
+
 import java.awt.Graphics;
 
 /**
@@ -73,7 +75,7 @@ public class AnimatedSprite implements Sprite {
      *            Whether or not this sprite is animating from the start.
      */
     public AnimatedSprite(Sprite[] frames, int delay, boolean loop, boolean isAnimating) {
-        assert frames.length > 0;
+        if (frames.length <= 0) throw new PacmanStateException("'frames' length should not greater than 0.");
 
         this.animationFrames = frames.clone();
         this.animationDelay = delay;

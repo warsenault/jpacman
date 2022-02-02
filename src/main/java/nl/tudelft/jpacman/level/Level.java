@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
@@ -92,9 +93,9 @@ public class Level {
      */
     public Level(Board board, List<Ghost> ghosts, List<Square> startPositions,
                  CollisionMap collisionMap) {
-        assert board != null;
-        assert ghosts != null;
-        assert startPositions != null;
+        if (board == null) throw new PacmanStateException("'board' should not be null.");
+        if (ghosts == null) throw new PacmanStateException("'ghosts' should not be null.");
+        if (startPositions == null) throw new PacmanStateException("'startPositions' should not be null.");
 
         this.board = board;
         this.inProgress = false;
@@ -138,7 +139,7 @@ public class Level {
      *            The player to register.
      */
     public void registerPlayer(Player player) {
-        assert player != null;
+        if (player == null) throw new PacmanStateException("'player' should not be null.");
         assert !startSquares.isEmpty();
 
         if (players.contains(player)) {
@@ -170,9 +171,9 @@ public class Level {
      *            The direction to move the unit in.
      */
     public void move(Unit unit, Direction direction) {
-        assert unit != null;
-        assert direction != null;
-        assert unit.hasSquare();
+        if (unit == null) throw new PacmanStateException("'unit' should not be null.");
+        if (direction == null) throw new PacmanStateException("'direction' should not be null.");
+        if (!unit.hasSquare()) throw new PacmanStateException("unit should be on a square.");
 
         if (!isInProgress()) {
             return;

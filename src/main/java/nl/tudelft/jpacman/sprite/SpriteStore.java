@@ -1,6 +1,7 @@
 package nl.tudelft.jpacman.sprite;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import nl.tudelft.jpacman.PacmanStateException;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -88,7 +89,8 @@ public class SpriteStore {
      */
     public AnimatedSprite createAnimatedSprite(Sprite baseImage, int frames,
                                                int delay, boolean loop) {
-        assert baseImage != null;
+        if (baseImage == null) throw new PacmanStateException("'baseImage' should not be null.");
+        if (frames <= 0) throw new PacmanStateException("'frames' should be greater than 0.");
         assert frames > 0;
 
         int frameWidth = baseImage.getWidth() / frames;

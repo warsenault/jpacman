@@ -160,7 +160,7 @@ public class Launcher {
 
     private Action moveTowardsDirection(Direction direction) {
         return () -> {
-            assert game != null;
+            if (game == null) throw new PacmanStateException("Game should not be null.");
             getGame().move(getSinglePlayer(getGame()), direction);
         };
     }

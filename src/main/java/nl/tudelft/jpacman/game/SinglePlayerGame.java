@@ -2,6 +2,7 @@ package nl.tudelft.jpacman.game;
 
 import java.util.List;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Player;
 
@@ -38,8 +39,8 @@ public class SinglePlayerGame extends Game {
     protected SinglePlayerGame(Player player, Level level, PointCalculator pointCalculator) {
         super(pointCalculator);
 
-        assert player != null;
-        assert level != null;
+        if (player == null) throw new PacmanStateException("'player' should not be null.");
+        if (level == null) throw new PacmanStateException("'level' should not be null.");
 
         this.player = player;
         this.level = level;

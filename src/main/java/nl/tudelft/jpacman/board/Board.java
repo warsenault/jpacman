@@ -1,6 +1,8 @@
 package nl.tudelft.jpacman.board;
 
 
+import nl.tudelft.jpacman.PacmanStateException;
+
 /**
  * A top-down view of a matrix of {@link Square}s.
  *
@@ -22,7 +24,7 @@ public class Board {
      */
     @SuppressWarnings("PMD.ArrayIsStoredDirectly")
     Board(Square[][] grid) {
-        assert grid != null;
+        if (grid == null) throw new PacmanStateException("'grid' should not be null.");
         this.board = grid;
         assert invariant() : "Initial grid cannot contain null squares";
     }
@@ -73,8 +75,9 @@ public class Board {
      * @return The square at the given <code>x,y</code> position (never null).
      */
     public Square squareAt(int x, int y) {
-        assert withinBorders(x, y);
+        if (!withinBorders(x, y)) throw new PacmanStateException("'x,y' not within borders.");
         Square result = board[x][y];
+        if (result == null) throw new PacmanStateException("'result' should not be null.");
         assert result != null : "Follows from invariant.";
         return result;
     }
