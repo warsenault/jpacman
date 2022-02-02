@@ -16,12 +16,13 @@ This fork contains bad smells and questionable practices (effectively making the
 3. Select 'Gradle' in the following screen as external model, and click 'Next'
 4. In the next screen, optionally adjust the Gradle options and click 'Finish'
 5. To see JPacman in action: run `nl.tudelft.jpacman.Launcher`
-5. To run the test suite in IntelliJ: right click on a test or directory -> `Run` or `Run ...Test`
+6. To run the test suite in IntelliJ: right click on a test or directory -> `Run` or `Run ...Test`
+    1. To see the coverage, on the Gradle tasks plugin right click on 'test' and select -> `Run 'jpacman[test]' with Coverage` 
 
 ### Command line
 1. Git clone the project
-2. To see JPacman in action: `./gradlew run`
-3. To run the test suite and static analysis tools: `./gradlew check`
-    1. For tests only run `./gradlew test`
-    2. For static analysis tools only run `./gradlew staticAnalysis`
-	 
+2. To build JPacman without running: `./gradlew build`
+3. To see JPacman in action: `./gradlew run`
+4. To run the tests use: `./gradlew test`
+5. For static analysis tools (not used in Software Reengineering): `./gradlew staticAnalysis`
+6. For static analysis tools and tests (not used in Software Reengineering): `./gradlew check`

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.sprite.Sprite;
 /**
  * A square on a {@link Board}, which can (or cannot, depending on the type) be

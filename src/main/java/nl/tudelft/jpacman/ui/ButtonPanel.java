@@ -1,5 +1,7 @@
 package nl.tudelft.jpacman.ui;
 
+import nl.tudelft.jpacman.PacmanStateException;
+
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -25,8 +27,9 @@ class ButtonPanel extends JPanel {
      */
     ButtonPanel(final Map<String, Action> buttons, final JFrame parent) {
         super();
-        assert buttons != null;
-        assert parent != null;
+        if (buttons == null ||  parent == null) {
+            throw new PacmanStateException("Buttons or parent should not be null.");
+        }
 
         for (final String caption : buttons.keySet()) {
             JButton button = new JButton(caption);

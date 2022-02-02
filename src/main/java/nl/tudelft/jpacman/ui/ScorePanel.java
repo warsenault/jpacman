@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.swing.*;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.level.Player;
 
 /**
@@ -47,7 +48,7 @@ public class ScorePanel extends JPanel {
      */
     public ScorePanel(List<Player> players) {
         super();
-        assert players != null;
+        if (players == null) throw new PacmanStateException("'players' should not be null.");
 
         setLayout(new GridLayout(2, players.size()));
 
@@ -95,7 +96,7 @@ public class ScorePanel extends JPanel {
      * @param scoreFormatter Score formatter to be used.
      */
     public void setScoreFormatter(ScoreFormatter scoreFormatter) {
-        assert scoreFormatter != null;
+        if (scoreFormatter == null) throw new PacmanStateException("'scoreFormatter' should not be null.");
         this.scoreFormatter = scoreFormatter;
     }
 }

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.game.Game;
 import nl.tudelft.jpacman.ui.ScorePanel.ScoreFormatter;
 
@@ -69,9 +70,9 @@ public class PacManUI extends JFrame {
                     final Map<Integer, Action> keyMappings,
                     ScoreFormatter scoreFormatter) {
         super("JPacman");
-        assert game != null;
-        assert buttons != null;
-        assert keyMappings != null;
+        if (game == null) throw new PacmanStateException("'game' should not be null.");
+        if (buttons == null) throw new PacmanStateException("'buttons' should not be null.");
+        if (keyMappings == null) throw new PacmanStateException("'keyMappings' should not be null.");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

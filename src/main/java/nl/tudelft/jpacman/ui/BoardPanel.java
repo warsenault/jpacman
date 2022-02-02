@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.board.Board;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
@@ -63,7 +64,7 @@ class BoardPanel extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        assert g != null;
+        if (g == null) throw new PacmanStateException("'g' should not be null.");
         render(game.getLevel().getBoard(), g, getSize());
     }
 

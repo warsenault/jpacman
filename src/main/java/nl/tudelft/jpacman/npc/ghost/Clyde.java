@@ -1,16 +1,13 @@
 package nl.tudelft.jpacman.npc.ghost;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import nl.tudelft.jpacman.board.Direction;
 import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.level.Player;
 import nl.tudelft.jpacman.npc.Ghost;
 import nl.tudelft.jpacman.sprite.Sprite;
+
+import java.util.*;
 
 /**
  * <p>
@@ -110,5 +107,27 @@ public class Clyde extends Ghost {
             return Optional.of(direction);
         }
         return Optional.empty();
+    }
+
+    /**
+     * Determines a possible move in a random direction.
+     *
+     * @return A direction in which the ghost can move, or <code>null</code> if
+     * the ghost is shut in by inaccessible squares.
+     */
+    @Override
+    protected Direction randomMove() {
+        Square square = getSquare();
+        List<Direction> directions = new ArrayList<>();
+        for (Direction direction : Direction.values()) {
+            if (square.getSquareAt(direction).isAccessibleTo(this)) {
+                directions.add(direction);
+            }
+        }
+        if (directions.isEmpty()) {
+            return null;
+        }
+        int i = new Random().nextInt(directions.size());
+        return directions.get(i);
     }
 }
