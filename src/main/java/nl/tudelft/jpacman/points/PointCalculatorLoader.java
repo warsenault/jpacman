@@ -18,36 +18,36 @@ public class PointCalculatorLoader {
      *
      * @return The (dynamically loaded) points calculator.
      */
-    public PointCalculator load() {
+    public static PointCalculator load() {
         try {
             if (clazz == null) {
                 clazz = loadClassFromFile();
             }
 
-            return (PointCalculator) clazz.newInstance();
+            return (PointCalculator) clazz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException("Could not dynamically load the points calculator.", e);
         }
     }
 
-    private Class loadClassFromFile() throws IOException, ClassNotFoundException {
+    private static Class loadClassFromFile() throws IOException, ClassNotFoundException {
         String strategyToLoad = getCalculatorClassName();
 
         if ("DefaultPointCalculator".equals(strategyToLoad)) {
             return DefaultPointCalculator.class;
         }
 
-        URL[] urls = new URL[]{getClass().getClassLoader().getResource("scoreplugins/")};
+        URL[] urls = new URL[]{PointCalculatorLoader.class.getClassLoader().getResource("scoreplugins/")};
 
-        try (URLClassLoader classLoader = new URLClassLoader(urls, getClass().getClassLoader())) {
+        try (URLClassLoader classLoader = new URLClassLoader(urls, PointCalculatorLoader.class.getClassLoader())) {
             return classLoader.loadClass(strategyToLoad);
         }
     }
 
-    private String getCalculatorClassName() throws IOException {
+    private static String getCalculatorClassName() throws IOException {
         Properties properties = new Properties();
 
-        properties.load(getClass().getClassLoader().getResourceAsStream("scorecalc.properties"));
+        properties.load(PointCalculatorLoader.class.getClassLoader().getResourceAsStream("scorecalc.properties"));
 
         return properties.getProperty("scorecalculator.name");
     }
