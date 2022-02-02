@@ -79,7 +79,7 @@ public class Launcher {
     }
 
     private PointCalculator loadPointCalculator() {
-        return new PointCalculatorLoader().load();
+        return PointCalculatorLoader.load();
     }
 
     /**
