@@ -1,13 +1,11 @@
 package nl.tudelft.jpacman.game;
 
-import java.util.List;
-
 import nl.tudelft.jpacman.PacmanStateException;
 import nl.tudelft.jpacman.level.Level;
 import nl.tudelft.jpacman.level.Player;
-
-import com.google.common.collect.ImmutableList;
 import nl.tudelft.jpacman.points.PointCalculator;
+
+import java.util.List;
 
 /**
  * A game with one player and a single level.
