@@ -3,6 +3,7 @@ package nl.tudelft.jpacman.level;
 import java.util.Map;
 
 import nl.tudelft.jpacman.board.Direction;
+import nl.tudelft.jpacman.board.ResetableUnit;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.sprite.AnimatedSprite;
 import nl.tudelft.jpacman.sprite.Sprite;
@@ -12,7 +13,7 @@ import nl.tudelft.jpacman.sprite.Sprite;
  *
  * @author Jeroen Roosen 
  */
-public class Player extends Unit {
+public class Player extends ResetableUnit {
 
     /**
      * The amount of points accumulated by this player.
@@ -28,6 +29,11 @@ public class Player extends Unit {
      * The animation that is to be played when Pac-Man dies.
      */
     private final AnimatedSprite deathSprite;
+
+    /**
+     * The amount of lives for the player
+     */
+    private int lives;
 
     /**
      * <code>true</code> iff this player is alive.
@@ -48,6 +54,7 @@ public class Player extends Unit {
      *            The sprite to be shown when this player dies.
      */
     protected Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
+        this.lives = 3;
         this.score = 0;
         this.alive = true;
         this.sprites = spriteMap;
@@ -78,10 +85,25 @@ public class Player extends Unit {
             this.killer = null;
         }
         if (!isAlive) {
+            this.lives--;
             deathSprite.restart();
         }
         this.alive = isAlive;
     }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public boolean isAnimating() {
+        return this.deathSprite.isAnimating();
+    }
+
+    public boolean hasLivesLeft() {
+        return this.lives > 0;
+    }
+
+
 
     /**
      * Returns the unit that caused the death of Pac-Man.

@@ -1,6 +1,8 @@
 package nl.tudelft.jpacman.npc;
 
 import nl.tudelft.jpacman.board.Direction;
+import nl.tudelft.jpacman.board.ResetableUnit;
+import nl.tudelft.jpacman.board.Square;
 import nl.tudelft.jpacman.board.Unit;
 import nl.tudelft.jpacman.sprite.Sprite;
 
@@ -13,7 +15,7 @@ import java.util.Random;
  *
  * @author Jeroen Roosen
  */
-public abstract class Ghost extends Unit {
+public abstract class Ghost extends ResetableUnit {
     /**
      * The sprite map, one sprite for each direction.
      */
@@ -76,7 +78,6 @@ public abstract class Ghost extends Unit {
     public long getInterval() {
         return this.moveInterval + new Random().nextInt(this.intervalVariation);
     }
-
 
 
     /**

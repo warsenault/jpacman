@@ -150,6 +150,10 @@ public class AnimatedSprite implements Sprite {
         }
     }
 
+    public boolean isAnimating() {
+        return animating;
+    }
+
     @Override
     public int getWidth() {
         assert currentSprite() != null;

@@ -140,7 +140,7 @@ public class Level {
      */
     public void registerPlayer(Player player) {
         if (player == null) throw new PacmanStateException("'player' should not be null.");
-        assert !startSquares.isEmpty();
+        if (startSquares.isEmpty()) throw new PacmanStateException("'startSquares' should not be null.");
 
         if (players.contains(player)) {
             return;
@@ -150,6 +150,16 @@ public class Level {
         player.occupy(square);
         startSquareIndex++;
         startSquareIndex %= startSquares.size();
+    }
+
+    public void restartLevel() {
+        for (Player player : players) {
+            player.setAlive(true);
+            player.resetPosition();
+        }
+        for (Ghost ghost : npcs.keySet()) {
+            ghost.resetPosition();
+        }
     }
 
     /**
@@ -202,6 +212,7 @@ public class Level {
     public void start() {
         synchronized (startStopLock) {
             if (isInProgress()) {
+                restartLevel();
                 return;
             }
             startNPCs();
@@ -265,8 +276,12 @@ public class Level {
      */
     private void updateObservers() {
         if (!isAnyPlayerAlive()) {
-            for (LevelObserver observer : observers) {
-                observer.levelLost();
+            if (isAllPlayerHasLivesLeft()) {
+                restartLevel();
+            } else {
+                for (LevelObserver observer : observers) {
+                    observer.levelLost();
+                }
             }
         }
         if (remainingPellets() == 0) {
@@ -291,6 +306,39 @@ public class Level {
         }
         return false;
     }
+
+    /**
+     * Returns <code>true</code> iff at least one of the players in this level
+     * is alive.
+     *
+     * @return <code>true</code> if at least one of the registered players is
+     *         alive.
+     */
+    public boolean isAllPlayerHasLivesLeft() {
+        for (Player player : players) {
+            if (!player.hasLivesLeft()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns <code>true</code> iff at least one of the players in this level
+     * is alive.
+     *
+     * @return <code>true</code> if at least one of the registered players is
+     *         alive.
+     */
+    public boolean isAllPlayerAnimationFinished() {
+        for (Player player : players) {
+            if (player.isAnimating()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Counts the pellets remaining on the board.
