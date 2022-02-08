@@ -89,9 +89,8 @@ public class CollisionInteractionMap implements CollisionMap {
      */
     private void addHandler(Class<? extends Unit> collider,
                             Class<? extends Unit> collidee, CollisionHandler<?, ?> handler) {
-        if (!handlers.containsKey(collider)) {
-            handlers.put(collider, new HashMap<>());
-        }
+
+        handlers.computeIfAbsent(collider, k -> new HashMap<>());
 
         Map<Class<? extends Unit>, CollisionHandler<?, ?>> map = handlers.get(collider);
         map.put(collidee, handler);
