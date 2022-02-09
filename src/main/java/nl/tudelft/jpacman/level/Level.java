@@ -324,23 +324,6 @@ public class Level {
     }
 
     /**
-     * Returns <code>true</code> iff at least one of the players in this level
-     * is alive.
-     *
-     * @return <code>true</code> if at least one of the registered players is
-     *         alive.
-     */
-    public boolean isAllPlayerAnimationFinished() {
-        for (Player player : players) {
-            if (player.isAnimating()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    /**
      * Counts the pellets remaining on the board.
      *
      * @return The amount of pellets remaining on the board.

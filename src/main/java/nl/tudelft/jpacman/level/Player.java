@@ -95,10 +95,6 @@ public class Player extends ResetableUnit {
         return lives;
     }
 
-    public boolean isAnimating() {
-        return this.deathSprite.isAnimating();
-    }
-
     public boolean hasLivesLeft() {
         return this.lives > 0;
     }
